@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>仕事で使える AI活用プロンプト集（見本）</title>
+<style>
+  :root { --navy:#1F4E78; --bg:#f6f8fb; --line:#d9e1ea; --text:#222; --sub:#667; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif; line-height:1.75; }
+  header { background:var(--navy); color:#fff; padding:28px 16px; }
+  header .in, main { max-width:880px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 6px; }
+  header p { margin:0; font-size:14px; opacity:.9; }
+  main { padding:20px 16px 60px; }
+  .note { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:14px; color:var(--sub); }
+  .note b { color:var(--text); }
+  nav { margin:18px 0; display:flex; flex-wrap:wrap; gap:8px; }
+  nav a { background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 14px; font-size:13px; color:var(--navy); text-decoration:none; }
+  section.card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 18px 8px; margin:18px 0; }
+  h2 { font-size:18px; margin:0 0 4px; color:var(--navy); }
+  .goal { font-size:14px; color:var(--sub); margin:0 0 12px; }
+  h3 { font-size:14px; margin:14px 0 6px; }
+  pre { white-space:pre-wrap; word-break:break-word; background:#f2f5f9; border:1px solid var(--line); border-radius:8px; padding:12px; font-size:13.5px; margin:0; font-family:inherit; }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:640px){ .cols { grid-template-columns:1fr; } }
+  .tag { display:inline-block; font-size:12px; padding:2px 8px; border-radius:6px; background:#e8f0f8; color:var(--navy); margin-right:6px; }
+  .tip { font-size:13.5px; margin:8px 0 14px; }
+  button { background:var(--navy); color:#fff; border:0; border-radius:6px; padding:6px 12px; font-size:12.5px; cursor:pointer; margin:8px 0 12px; }
+  footer { font-size:12px; color:var(--sub); padding:0 16px 40px; max-width:880px; margin:0 auto; }
+</style>
+</head>
+<body>
+<header><div class="in">
+  <h1>仕事で使える AI活用プロンプト集（見本）</h1>
+  <p>議事録・メール・商品説明・調査まとめなど、よくある業務で「そのままコピーして使える」依頼文の例です。</p>
+</div></header>
+<main>
+  <div class="note">
+    <b>この見本について：</b>AIを「下書きづくり」と「整理」に使い、<b>最終確認は人が行う</b>前提で作っています。
+    入力する情報に、個人情報や社外秘を含めないための注意書きも、各プロンプトに入れています。
+  </div>
+  <nav>
+    <a href="#p1">① 議事録の要約</a><a href="#p2">② メールの返信</a><a href="#p3">③ 商品説明文</a>
+    <a href="#p4">④ 調査のまとめ</a><a href="#p5">⑤ スプレッドシート相談</a><a href="#p6">⑥ 文章の校正</a>
+  </nav>
+
+  <section class="card" id="p1">
+    <h2>① 会議メモを、決定事項と「やること」にまとめる</h2>
+    <p class="goal">目的：長い会議メモを、5分で共有できる形に整える</p>
+    <h3>コピーして使うプロンプト</h3>
+    <pre id="t1">あなたは、業務の議事録を整理するアシスタントです。
+次の会議メモを読み、以下の形式でまとめてください。
+・決定したこと（箇条書き）
+・やること（担当者・期限つきの表）
+・未決定の事項と、確認が必要な点
+メモに書かれていないことは補わず、不明な点は「不明」と書いてください。
+
+【会議メモ】
+（ここにメモを貼る）</pre>
+    <button data-copy="t1">コピーする</button>
+    <div class="cols">
+      <div><h3>入力例</h3><pre>来月の展示会、ブース案Aで進める方向。予算は上限30万。チラシは佐藤さんが今週中。申込締切は月末？要確認。</pre></div>
+      <div><h3>出力例</h3><pre>■決定したこと
+・展示会のブースは案Aで進める
+・予算の上限は30万円
+■やること
+| 内容 | 担当 | 期限 |
+| チラシの作成 | 佐藤さん | 今週中 |
+■確認が必要な点
+・申込の締切（月末かどうか）：不明</pre></div>
+    </div>
+    <p class="tip"><span class="tag">コツ</span>「補わず、不明と書く」と指示すると、AIが勝手に情報を足すのを防げます。</p>
+  </section>
+
+  <section class="card" id="p2">
+    <h2>② お客様へのメール返信の下書きを作る</h2>
+    <p class="goal">目的：丁寧で、要点がずれない返信を、短時間で作る</p>
+    <h3>コピーして使うプロンプト</h3>
+    <pre id="t2">あなたは、丁寧なビジネスメールを書くアシスタントです。
+次のメールへの返信の下書きを作ってください。
+・敬語は丁寧に、200〜300文字
+・お礼 → 回答 → 次のお願い、の順
+・伝える内容は、下の「返信で伝えたいこと」だけにする
+・日時や金額は、書かれたとおりに書く
+
+【届いたメール】
+（ここに貼る。個人名や連絡先は伏せる）
+【返信で伝えたいこと】
+（箇条書きで書く）</pre>
+    <button data-copy="t2">コピーする</button>
+    <p class="tip"><span class="tag">コツ</span>送る前に、日時・金額・名前を、人の目で確認します。AIの文章を、そのまま送らないのが基本です。</p>
+  </section>
+
+  <section class="card" id="p3">
+    <h2>③ 商品説明文のたたき台を作る</h2>
+    <p class="goal">目的：特徴の箇条書きから、読みやすい説明文の下書きを作る</p>
+    <h3>コピーして使うプロンプト</h3>
+    <pre id="t3">あなたは、ネットショップの商品説明を書くアシスタントです。
+次の情報から、商品説明文の下書きを3パターン（やさしい・説明的・短め）作ってください。
+・事実として書かれていないことは、書かない
+・「必ず」「絶対」などの断定表現は使わない
+・各パターンは150文字前後
+
+【商品名】
+【特徴（箇条書き）】
+【想定するお客様】</pre>
+    <button data-copy="t3">コピーする</button>
+    <p class="tip"><span class="tag">コツ</span>3パターン出させると、依頼主に選んでもらいやすくなります。誇大な表現は、人が最後に確認します。</p>
+  </section>
+
+  <section class="card" id="p4">
+    <h2>④ 調べた内容を、比較表にまとめる</h2>
+    <p class="goal">目的：集めた情報を、比べやすい表と、結論つきの要約にする</p>
+    <h3>コピーして使うプロンプト</h3>
+    <pre id="t4">次の情報を、比較表にまとめてください。
+・列：項目名、A、B、C
+・最後に「結論（3行以内）」と「まだ分からないこと」を書く
+・情報源が書かれていない数字には、「要確認」と付ける
+
+【集めた情報】
+（ここに貼る）</pre>
+    <button data-copy="t4">コピーする</button>
+    <p class="tip"><span class="tag">コツ</span>「要確認」を付けさせると、数字の裏取りを忘れにくくなります。</p>
+  </section>
+
+  <section class="card" id="p5">
+    <h2>⑤ スプレッドシートの関数・自動化を相談する</h2>
+    <p class="goal">目的：やりたいことを言葉にして、関数やGASの案をもらう</p>
+    <h3>コピーして使うプロンプト</h3>
+    <pre id="t5">あなたは、Googleスプレッドシートに詳しいアシスタントです。
+次の作業を、関数で実現する方法を、初心者向けに説明してください。
+・まず、シートの列構成を確認する質問があれば、先に聞いてください
+・関数は、そのまま貼れる形で、1つずつ示してください
+・関数で難しい場合のみ、GAS（コード）の案を出してください
+
+【やりたいこと】
+（例：A列の日付が今月のものだけ、B列を合計したい）
+【シートの列構成】
+（例：A=日付、B=金額、C=担当）</pre>
+    <button data-copy="t5">コピーする</button>
+    <p class="tip"><span class="tag">コツ</span>列構成を先に伝えると、関数が一発で合いやすくなります。まず、コピーしたシートで試します。</p>
+  </section>
+
+  <section class="card" id="p6">
+    <h2>⑥ 文章を、読みやすく整える（校正・言い換え）</h2>
+    <p class="goal">目的：意味を変えずに、読みやすい日本語にする</p>
+    <h3>コピーして使うプロンプト</h3>
+    <pre id="t6">次の文章を、意味を変えずに、読みやすく整えてください。
+・誤字脱字、てにをはの誤りを直す
+・1文を60文字以内に分ける
+・直した箇所は、「元 → 直し」の形で、最後に一覧にする
+・事実や数字は、変えない
+
+【文章】
+（ここに貼る）</pre>
+    <button data-copy="t6">コピーする</button>
+    <p class="tip"><span class="tag">コツ</span>「直した箇所の一覧」を出させると、依頼主に、変更点を見せられます。</p>
+  </section>
+</main>
+<footer>
+  自分で作った見本です。仕事としての納品実績ではありません。例の内容は、すべて架空のものです。
+</footer>
+<script>
+  document.querySelectorAll('button[data-copy]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      if (!el) return;
+      var text = el.innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () { b.textContent = 'コピーしました'; setTimeout(function(){ b.textContent = 'コピーする'; }, 1500); });
+      }
+    });
+  });
+</script>
+</body>
+</html>
